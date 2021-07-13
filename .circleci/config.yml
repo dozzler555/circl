@@ -11,9 +11,11 @@ jobs:
   build-medium:
     machine:
       image: ubuntu-2004:202101-01
-    resource_class: arm.medium
+    resource_class: medium
     steps:
       - setup
+      - run:
+          name: run some
           command: |
              mkdir -p tmp/recovery
              cd tmp/recovery
