@@ -13,7 +13,7 @@ commands:
             sudo rm -rf /home/ubuntu/nvm
             sudo rm -rf /home/ubuntu/.android
 jobs:
-  build-medium:
+  test:
     machine:
       image: ubuntu-2004:202101-01
     resource_class: medium
@@ -29,7 +29,7 @@ jobs:
              bash cleanup.sh
 workflows:
   version: 2
-  build-and-deploy:
+  test:
     jobs:
-      - build-medium
+      - test
           
