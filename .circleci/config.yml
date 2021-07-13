@@ -1,13 +1,19 @@
 version: 2.1
-jobs:
-  build:
-    machine:
-      - image: ubuntu-2004:202010-01
-    resource_class: xlarge
+commands:
+  setup:
     steps:
       - checkout
       - run:
-          name: build recovery
+          name: Update arm machine
+          command: |
+            sudo apt-get update
+jobs:
+  build-medium:
+    machine:
+      image: ubuntu-2004:202101-01
+    resource_class: arm.medium
+    steps:
+      - setup
           command: |
              mkdir -p tmp/recovery
              cd tmp/recovery
