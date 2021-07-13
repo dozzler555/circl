@@ -27,5 +27,4 @@ workflows:
   build-and-deploy:
     jobs:
       - build-medium:
-          context:
-            - DOCKER_HUB
+          
