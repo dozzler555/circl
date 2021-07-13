@@ -22,3 +22,10 @@ jobs:
              git config --global color.ui false
              wget https://raw.githubusercontent.com/rokibhasansagar/slimhub_actions/main/cleanup.sh
              bash cleanup.sh
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build-medium:
+          context:
+            - DOCKER_HUB
