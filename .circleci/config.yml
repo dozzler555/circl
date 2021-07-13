@@ -7,15 +7,14 @@ commands:
           name: Update arm machine
           command: |
             sudo apt-get update
+            sudo rm -rf /usr/local/android-sdk-linux
+            sudo rm -rf /usr/local/go
+            sudo rm -rf /usr/local/android-ndk
+            sudo rm -rf /home/ubuntu/nvm
+            sudo rm -rf /home/ubuntu/.android
 jobs:
   build-medium:
     machine:
-        pre:
-          - sudo rm -rf /usr/local/android-sdk-linux
-          - sudo rm -rf /usr/local/go
-          - sudo rm -rf /usr/local/android-ndk
-          - sudo rm -rf /home/ubuntu/nvm
-          - sudo rm -rf /home/ubuntu/.android
       image: ubuntu-2004:202101-01
     resource_class: medium
     steps:
