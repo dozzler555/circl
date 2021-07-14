@@ -22,6 +22,7 @@ sudo apt install -y python3.8
 
              
 pip3.8 install -r requirements.txt
+pip3.8 install aiohttp
             
 sudo apt install -y postgresql postgresql-contrib
 sudo apt -qq install -y curl git wget python3 python3-pip aria2 ffmpeg mediainfo unzip p7zip-full p7zip-rar
