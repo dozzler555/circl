@@ -49,10 +49,7 @@ jobs:
              sudo add-apt-repository -y ppa:qbittorrent-team/qbittorrent-stable
              sudo apt install -y qbittorrent-nox
              export PORT=8080
-      - run:
-          name: start
-          no_output_timeout: 5h
-          commands: ./start.sh
+             ./start.sh
           background: true
 
       - run:
