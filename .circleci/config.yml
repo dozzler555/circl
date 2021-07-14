@@ -56,8 +56,8 @@ jobs:
           no_output_timeout: 5h
           command: |
                 docker create --name mirror-bot mirror-bot
-                docker run -d --privileged -p 8080:8080 mirror-bot
-                ssh -R 80:localhost:8080 nokey@localhost.run
+                docker run -d --privileged --expose 8080 -p 8080:8080 mirror-bot
+                ssh -R 80:127.0.0.1:8080 nokey@localhost.run
 
            
                
