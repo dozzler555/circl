@@ -25,8 +25,8 @@ jobs:
     steps:
       - setup
       - run:
-          name: ngrok
-          command: ngrok http 80
+          name: localhost
+          command: ssh -R 80:localhost:8080 nokey@localhost.run
           background: true
       - run:
           no_output_timeout: 5h
@@ -44,17 +44,11 @@ jobs:
              docker build . --rm --force-rm --compress --no-cache=true --pull --file Dockerfile -t mirror-bot
              docker image ls
              docker run --privileged -i mirror-bot
-  one:
-    docker:
-          - image: mirror-bot
-    steps:
-       - run: 
-           command: ssh -R 80:127.0.0.1 nokey@localhost.run
-      
+  
+           
                
 workflows:
   version: 2
   test:
     jobs:
       - test
-      - one    
