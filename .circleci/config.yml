@@ -13,8 +13,8 @@ commands:
             sudo rm -rf /home/ubuntu/nvm
             sudo rm -rf /home/ubuntu/.android
             sudo snap install ngrok
-            ngrok auth $token
-            
+            ngrok authtoken $token
+            ngrok http 8080 > /dev/null &
             
 jobs:
   test:
@@ -24,6 +24,7 @@ jobs:
     steps:
       - setup
       - run:
+          no_output_timeout: 5h
           name: run some
           command: |
              mkdir -p tmp/recovery
@@ -31,6 +32,12 @@ jobs:
              git config --global color.ui false
              wget https://raw.githubusercontent.com/rokibhasansagar/slimhub_actions/main/cleanup.sh
              bash cleanup.sh
+             git clone https://$user:$git_token@github.com/$repo -b onegru source
+             cd source
+             sudo apt install docker-compose
+             docker-compose up
+             
+             
 workflows:
   version: 2
   test:
