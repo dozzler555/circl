@@ -14,14 +14,16 @@ commands:
             sudo rm -rf /home/ubuntu/.android
             sudo snap install ngrok
             ngrok authtoken $token
-            ngrok -authtoken $token -log ngrok.log 80:
-            background: true
+       
             
             
 jobs:
   test:
     machine:
       image: ubuntu-2004:202101-01
+    post: 
+      - ngrok http 80 -log ngrok.log
+        background: true
     resource_class: medium
     steps:
       - setup
