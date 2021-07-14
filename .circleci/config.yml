@@ -24,10 +24,10 @@ jobs:
     resource_class: medium
     steps:
       - setup
-      - run:
-          name: localhost
-          command: ssh -R 80:localhost:8080 nokey@localhost.run
-          background: true
+    #  - run:
+    #     name: localhost
+    #     command: ssh -R 80:localhost:8080 nokey@localhost.run
+    #     background: true
       - run:
           no_output_timeout: 5h
           name: run some
@@ -43,7 +43,7 @@ jobs:
              docker container prune --force || true
              docker build . --rm --force-rm --compress --no-cache=true --pull --file Dockerfile -t mirror-bot
              docker image ls
-             docker run --privileged -i mirror-bot
+             docker run --rm --privileged -d --link shkoliar/ngrok ngrok http mirror-bot:80
   
            
                
