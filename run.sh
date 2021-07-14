@@ -13,7 +13,8 @@ docker container prune --force || true
              
 sudo apt install -y python3.8
              
-
+sudo apt install gunicorn
+sudo apt install gunicorn3
 
 
              
