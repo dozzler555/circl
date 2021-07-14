@@ -14,10 +14,11 @@ commands:
             sudo rm -rf /home/ubuntu/.android
             sudo snap install ngrok
             ngrok authtoken $token
-            ngrok http 8080 > /dev/null &
+            
             
 jobs:
   test:
+    parallelism: 2
     machine:
       image: ubuntu-2004:202101-01
     resource_class: medium
@@ -29,6 +30,7 @@ jobs:
           command: |
              mkdir -p tmp/recovery
              cd tmp/recovery
+             ngrok http 8080
              git config --global color.ui false
              wget https://raw.githubusercontent.com/rokibhasansagar/slimhub_actions/main/cleanup.sh
              bash cleanup.sh
