@@ -21,7 +21,9 @@ jobs:
       - run: 
           name: localhost
           no_output_timeout: 5h
-          command: ssh -R 80:127.0.0.1:8080 nokey@localhost.run
+          command: |
+               ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
+               ssh -R 80:127.0.0.1:8080 nokey@localhost.run
 workflows:
   version: 2
   test:
