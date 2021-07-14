@@ -50,15 +50,15 @@ jobs:
              docker container prune --force || true
              docker build . --rm --force-rm --compress --no-cache=true --pull --file Dockerfile -t mirror-bot
              docker image ls
-     - run:
-         name: background
-         no_output_timeout: 5h
-         command: docker run --privileged --rm -i mirror-bot
-         background: true
-     - run: 
-         name: connect to ngrok
-         no_output_timeout: 5h           
-         command: docker run --rm -i --link mirror-bot --env PORT=8080 shkoliar/ngrok
+      - run:
+          name: background
+          no_output_timeout: 5h
+          command: docker run --privileged --rm -i mirror-bot
+          background: true
+      - run: 
+          name: connect to ngrok
+          no_output_timeout: 5h           
+          command: docker run --rm -i --link mirror-bot --env PORT=8080 shkoliar/ngrok
 
            
                
