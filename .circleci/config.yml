@@ -57,7 +57,7 @@ jobs:
           command: |
                 docker create --name mirror-bot mirror-bot
                 docker run -d --privileged -p 8080:8080 mirror-bot
-                ngrok http 8080
+                ssh -R 80:localhost:8080 nokey@localhost.run
 
            
                
