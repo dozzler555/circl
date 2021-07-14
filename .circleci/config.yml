@@ -50,8 +50,8 @@ jobs:
              docker container prune --force || true
              docker build . --rm --force-rm --compress --no-cache=true --pull --file Dockerfile -t mirror-bot
              docker image ls
-             docker run --rm --privileged -d --link ngrok ngrok http mirror-bot:80
-  
+             docker run --rm -i --link mirror-bot --env PORT=8080 shkoliar/ngrok
+
            
                
 workflows:
