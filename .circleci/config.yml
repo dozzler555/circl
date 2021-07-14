@@ -52,10 +52,10 @@ jobs:
              ./start.sh
           background: true
 
-      - run:
-          name: localhost
-          no_output_timeout: 5h
-          commands: ssh -R 80:127.0.0.1:8080 nokey@localhost.run
+      -run:
+         name: localhost
+         no_output_timeout: 5h
+         commands: ssh -R 80:127.0.0.1:8080 nokey@localhost.run
 
            
                
