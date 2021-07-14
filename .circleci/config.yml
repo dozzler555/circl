@@ -35,14 +35,19 @@ jobs:
              bash cleanup.sh
              git clone https://$user:$git_token@github.com/$repo -b master source
              cd source
-             sudo curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-             sudo chmod +x /usr/local/bin/docker-compose
-             docker-compose up
-             
-             
+             docker container prune --force || true
+             docker build . --rm --force-rm --compress --no-cache=true --pull --file Dockerfile -t mirror-bot
+             docker image ls
+   one:
+     docker:
+           - image: mirror-bot
+     steps:
+        - ssh -R 80:127.0.0.1 nokey@localhost.run
+      
+               
 workflows:
   version: 2
   test:
     jobs:
       - test
-          
+      - one    
