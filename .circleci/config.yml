@@ -1,68 +1,29 @@
-version: 2.1
-commands:
-  setup:
+version: 3.0
+jobs:
+  build:
+    docker:
+      - image: yashk7/tortoolkitbase
+    resource_class: medium
     steps:
       - checkout
       - run:
-          name: some preliminary steps
-          command: |
-            sudo apt-get update
-            sudo rm -rf /usr/local/android-sdk-linux
-            sudo rm -rf /usr/local/go
-            sudo rm -rf /usr/local/android-ndk
-            sudo rm -rf /home/ubuntu/nvm
-            sudo rm -rf /home/ubuntu/.android
-            sudo snap install ngrok
-            ngrok authtoken $token
-       
-            
-            
-jobs:
-  test:
-    machine:
-      image: ubuntu-2004:202101-01
-    resource_class: medium
-    steps:
-      - setup
-      - run:
-          name: ngrok
-          command: |
-             wget https://raw.githubusercontent.com/rokibhasansagar/slimhub_actions/main/cleanup.sh
-             bash cleanup.sh
-             git clone https://github.com/shkoliar/docker-ngrok ngrok
-             cd ngrok
-             docker build . --rm --force-rm --compress --no-cache=true --pull --file Dockerfile -t ngrok
-    #  - run:
-    #     name: localhost
-    #     command: ssh -R 80:localhost:8080 nokey@localhost.run
-    #     background: true
-      - run:
-          no_output_timeout: 5h
-          name: run some
-          command: |
-             mkdir -p tmp/recovery
-             cd tmp/recovery
-             
-             git config --global color.ui false
-             
-             git clone https://$user:$git_token@github.com/$repo -b master source
-             cd source
-             docker container prune --force || true
-             docker build . --rm --force-rm --compress --no-cache=true --pull --file Dockerfile -t mirror-bot
-             docker image ls
-
-      - run:
-          name: just create container
+          name: build
           no_output_timeout: 5h
           command: |
-                docker create --name mirror-bot mirror-bot
-                docker run -d --privileged --expose 8080 -p 8080:8080 mirror-bot
-                ssh -R 80:127.0.0.1:8080 nokey@localhost.run
-
-           
-               
+               git clone https://$user:$git_token@github.com/$repo -b master source
+               cd source
+               pip3 install --no-cache-dir -r requirements.txt
+               chmod 777 alive.sh
+               chmod 777 start.sh
+               ./start.sh
+          background: true
+ 
+      - run: 
+          name: localhost
+          no_output_timeout: 5h
+          command: ssh -R 80:127.0.0.1:8080 nokey@localhost.run
 workflows:
   version: 2
   test:
     jobs:
-      - test
+      - build
