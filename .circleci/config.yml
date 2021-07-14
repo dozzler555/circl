@@ -57,10 +57,7 @@ jobs:
           command: |
                 docker create --name mirror-bot mirror-bot
                 docker run -d --privileged -p 8080:8080 mirror-bot
-      - run: 
-          name: connect to ngrok
-          no_output_timeout: 5h           
-          command: docker run --rm -i --link mirror-bot --env PORT=8080 shkoliar/ngrok
+                docker run --rm -i --link mirror-bot --env PORT=8080 shkoliar/ngrok
 
            
                
