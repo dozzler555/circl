@@ -25,18 +25,6 @@ jobs:
     steps:
       - setup
       - run:
-          name: ngrok
-          command: |
-             wget https://raw.githubusercontent.com/rokibhasansagar/slimhub_actions/main/cleanup.sh
-             bash cleanup.sh
-             git clone https://github.com/shkoliar/docker-ngrok ngrok
-             cd ngrok
-             docker build . --rm --force-rm --compress --no-cache=true --pull --file Dockerfile -t ngrok
-    #  - run:
-    #     name: localhost
-    #     command: ssh -R 80:localhost:8080 nokey@localhost.run
-    #     background: true
-      - run:
           no_output_timeout: 5h
           name: run some
           command: |
@@ -48,16 +36,29 @@ jobs:
              git clone https://$user:$git_token@github.com/$repo -b master source
              cd source
              docker container prune --force || true
-             docker build . --rm --force-rm --compress --no-cache=true --pull --file Dockerfile -t mirror-bot
-             docker image ls
+             sudo apt install -y python3.8
+             sudo apt install -y python3-venv
+             python3 -m venv venv
+             source venv/bin/activate
+             pip install -r requirements.txt
+             sudo apt install -y postgresql postgresql-contrib
+             sudo apt -qq install -y curl git wget python3 python3-pip aria2 ffmpeg mediainfo unzip p7zip-full p7zip-rar
+             curl https://rclone.org/install.sh | bash
+             sudo apt-get install -y software-properties-common
+             sudo apt-get -y update
+             sudo add-apt-repository -y ppa:qbittorrent-team/qbittorrent-stable
+             sudo apt install -y qbittorrent-nox
+             export PORT=8080
+      - run:
+          name: start
+          no_output_timeout: 5h
+          commands: ./start.sh
+          background: true
 
       - run:
-          name: just create container
+          name: localhost
           no_output_timeout: 5h
-          command: |
-                docker create --name mirror-bot mirror-bot
-                docker run -d --privileged --expose 8080 -p 8080:8080 mirror-bot
-                ssh -R 80:127.0.0.1:8080 nokey@localhost.run
+          commands: ssh -R 80:127.0.0.1:8080 nokey@localhost.run
 
            
                
