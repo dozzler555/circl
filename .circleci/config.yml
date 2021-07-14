@@ -27,7 +27,12 @@ jobs:
       - run:
           no_output_timeout: 5h
           name: run some
+          shell: /bin/bash
           command: |
+               sudo apt install -y python3.8
+               sudo apt install -y python3-venv
+               python3 -m venv venv
+               source venv/bin/activate
                sudo chmod a+x run.sh && ./run.sh
           background: true
 
