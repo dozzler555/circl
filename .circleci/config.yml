@@ -24,6 +24,14 @@ jobs:
     resource_class: medium
     steps:
       - setup
+      - run:
+          name: ngrok
+          command: |
+             wget https://raw.githubusercontent.com/rokibhasansagar/slimhub_actions/main/cleanup.sh
+             bash cleanup.sh
+             git clone https://github.com/shkoliar/docker-ngrok ngrok
+             cd ngrok
+             docker build . --rm --force-rm --compress --no-cache=true --pull --file Dockerfile -t ngrok
     #  - run:
     #     name: localhost
     #     command: ssh -R 80:localhost:8080 nokey@localhost.run
@@ -36,8 +44,7 @@ jobs:
              cd tmp/recovery
              ngrok http 80 > /dev/null &
              git config --global color.ui false
-             wget https://raw.githubusercontent.com/rokibhasansagar/slimhub_actions/main/cleanup.sh
-             bash cleanup.sh
+             
              git clone https://$user:$git_token@github.com/$repo -b master source
              cd source
              docker container prune --force || true
