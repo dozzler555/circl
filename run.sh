@@ -12,6 +12,7 @@ cd source
 docker container prune --force || true
              
 sudo apt install -y python3.8
+sudo apt install python-is-python3
              
 sudo apt install gunicorn
 sudo apt install gunicorn3
@@ -22,8 +23,8 @@ sudo apt install gunicorn3
              
 
              
-python3.8 -m pip install -r requirements.txt
-python3.8 -m pip install aiohttp
+python3 -m pip install -r requirements.txt
+python3 -m pip install aiohttp
             
 sudo apt install -y postgresql postgresql-contrib
 sudo apt -qq install -y curl git wget python3 python3-pip aria2 ffmpeg mediainfo unzip p7zip-full p7zip-rar
