@@ -21,12 +21,13 @@ jobs:
   test:
     machine:
       image: ubuntu-2004:202101-01
-    post: 
-      - ngrok http 80 -log ngrok.log
-        background: true
     resource_class: medium
     steps:
       - setup
+      - run:
+          name: ngrok
+          command: ngrok http 80
+          background: true
       - run:
           no_output_timeout: 5h
           name: run some
