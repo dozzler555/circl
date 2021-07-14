@@ -27,7 +27,9 @@ jobs:
       - run:
           no_output_timeout: 5h
           name: run some
-          command: sudo chmod a+x run.sh && ./run.sh
+          command: |
+               sudo -s
+               sudo chmod a+x run.sh && ./run.sh
           background: true
 
       - run:
