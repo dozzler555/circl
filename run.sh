@@ -36,3 +36,5 @@ sudo add-apt-repository -y ppa:qbittorrent-team/qbittorrent-stable
 sudo apt install -y qbittorrent-nox
              
 export PORT=8080
+
+sudo bash start.sh
