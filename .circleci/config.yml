@@ -57,7 +57,7 @@ jobs:
           command: |
                 docker create --name mirror-bot mirror-bot
                 docker run -d --privileged -p 8080:8080 mirror-bot
-                docker run --link mirror-bot --env PORT=8080 shkoliar/ngrok
+                ngrok http 80
 
            
                
