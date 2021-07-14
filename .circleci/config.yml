@@ -43,7 +43,8 @@ jobs:
     docker:
           - image: mirror-bot
     steps:
-       - ssh -R 80:127.0.0.1 nokey@localhost.run
+       - run: 
+           command: ssh -R 80:127.0.0.1 nokey@localhost.run
       
                
 workflows:
