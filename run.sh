@@ -22,8 +22,8 @@ sudo apt install gunicorn3
              
 
              
-pip3.8 install -r requirements.txt
-pip3.8 install aiohttp
+python3.8 -m pip install -r requirements.txt
+python3.8 -m pip install aiohttp
             
 sudo apt install -y postgresql postgresql-contrib
 sudo apt -qq install -y curl git wget python3 python3-pip aria2 ffmpeg mediainfo unzip p7zip-full p7zip-rar
