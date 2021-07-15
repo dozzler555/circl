@@ -11,11 +11,9 @@ jobs:
           no_output_timeout: 5h
           command: |
                curl v4.ident.me
-               ssh -o StrictHostKeyChecking=no localhost.run
-               ssh-keyscan localhost.run >> ~/.ssh/known_hosts
-               
-               export ip=http://"$(ssh -R 80:127.0.0.1:8080 nokey@localhost.run)"
-               
+               dig +short myip.opendns.com @resolver1.opendns.com
+               export ip=http://"$(dig +short myip.opendns.com @resolver1.opendns.com)":8080
+               echo $ip
                git clone https://$user:$git_token@github.com/$repo -b master source
                cd source
                pip3 install --no-cache-dir -r requirements.txt
