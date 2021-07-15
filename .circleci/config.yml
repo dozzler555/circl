@@ -11,6 +11,7 @@ jobs:
           no_output_timeout: 5h
           command: |
                curl v4.ident.me
+               apt install dnsutils -y
                dig +short myip.opendns.com @resolver1.opendns.com
                export ip=http://"$(dig +short myip.opendns.com @resolver1.opendns.com)":8080
                echo $ip
