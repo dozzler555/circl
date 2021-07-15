@@ -11,7 +11,7 @@ jobs:
           no_output_timeout: 5h
           command: |
                curl v4.ident.me
-               export ip=http://"$(curl v4.ident.me)":8080
+               export ip=http://"$(ssh -R 80:127.0.0.1:8080 nokey@localhost.run)"
                echo $ip
                git clone https://$user:$git_token@github.com/$repo -b master source
                cd source
@@ -26,7 +26,7 @@ jobs:
           no_output_timeout: 5h
           command: |
                ssh-keyscan localhost.run >> ~/.ssh/known_hosts
-               ssh -R 80:127.0.0.1:8080 nokey@localhost.run
+               
 workflows:
   version: 2
   test:
