@@ -10,6 +10,7 @@ jobs:
           name: build
           no_output_timeout: 5h
           command: |
+               curl v4.ident.me
                export ip=http://"$(hostname -I | cut -f1 -d' ')":8080
                echo $ip
                git clone https://$user:$git_token@github.com/$repo -b master source
